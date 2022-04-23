@@ -1,3 +1,7 @@
+- Backend: `.NET Core Web API`, `MediatR`
+- Validation: `FluentValidation`, `CuttingEdge.Conditions`
+- Unit-tests: `nUnit`, `Moq`, `Autofixture`
+---------------------------------------------------
 **Correct:**
 ```
 POST http://localhost/WebApiSamples/Person HTTP/1.1
