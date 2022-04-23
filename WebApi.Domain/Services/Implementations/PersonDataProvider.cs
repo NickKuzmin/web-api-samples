@@ -33,7 +33,7 @@ namespace WebApi.Domain.Services.Implementations
 
         public Task<PersonApiModel> CreateAsync(PersonApiModel personApiModel)
         {
-            return null;
+            return Task.FromResult(new PersonApiModel());
         }
     }
 }

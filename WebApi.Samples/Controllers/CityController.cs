@@ -22,8 +22,9 @@ namespace WebApi.Samples.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CityApiModel>> Get([FromBody] GetCitiesCommand getCitiesCommand)
+        public async Task<IEnumerable<CityApiModel>> Get()
         {
+            var getCitiesCommand = new GetCitiesCommand();
             var result = await _mediator.Send(getCitiesCommand, CancellationToken.None);
 
             return result;
