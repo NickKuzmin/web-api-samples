@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebApi.Samples.ApiModels;
+using WebApi.Domain.ApiModels;
 
 namespace WebApi.Domain.Services.Interfaces
 {

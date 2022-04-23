@@ -6,10 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="CuttingEdge.Conditions.NetStandard" Version="1.2.0" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WebApi.Domain\WebApi.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Validators\" />
   </ItemGroup>
 
 </Project>

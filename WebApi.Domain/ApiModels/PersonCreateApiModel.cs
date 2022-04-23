@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace WebApi.Domain.ApiModels
+﻿namespace WebApi.Domain.ApiModels
 {
-    public class PersonApiModel
+    public class PersonCreateApiModel
     {
-        public Guid Id { get; set; }
-
         public string Phone { get; set; }
 
         public string Email { get; set; }

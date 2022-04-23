@@ -21,6 +21,7 @@ namespace WebApi.Samples
         {
             services.AddControllers();
             services.AddScoped<ICityDataProvider, CityDataProvider>();
+            services.AddScoped<IPersonDataProvider, PersonDataProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

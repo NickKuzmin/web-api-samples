@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebApi.Domain.ApiModels;
 using WebApi.Domain.Services.Interfaces;
-using WebApi.Samples.ApiModels;
 
 namespace WebApi.Domain.Services.Implementations
 {

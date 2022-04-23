@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CuttingEdge.Conditions;
+using WebApi.Domain.ApiModels;
 using WebApi.Domain.Services.Interfaces;
-using WebApi.Samples.ApiModels;
 
 namespace WebApi.Samples.Controllers
 {
@@ -22,6 +22,14 @@ namespace WebApi.Samples.Controllers
         public IEnumerable<PersonApiModel> Get()
         {
             return _personDataProvider.Get();
+        }
+
+        [HttpPost]
+        public PersonApiModel Create(PersonCreateApiModel personCreateApiModel)
+        {
+            var personApiModel = new PersonApiModel();
+
+            return _personDataProvider.Create(personApiModel);
         }
     }
 }

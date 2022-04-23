@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CuttingEdge.Conditions;
+using WebApi.Domain.ApiModels;
 using WebApi.Domain.Services.Interfaces;
-using WebApi.Samples.ApiModels;
 
 namespace WebApi.Samples.Controllers
 {

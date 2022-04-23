@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebApi.Domain.ApiModels;
 using WebApi.Domain.Services.Interfaces;
-using WebApi.Samples.ApiModels;
 
 namespace WebApi.Domain.Services.Implementations
 {
@@ -10,6 +10,11 @@ namespace WebApi.Domain.Services.Implementations
         public IEnumerable<PersonApiModel> Get()
         {
             return Array.Empty<PersonApiModel>();
+        }
+
+        public PersonApiModel Create(PersonApiModel personApiModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

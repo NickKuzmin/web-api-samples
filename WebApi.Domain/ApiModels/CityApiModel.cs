@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApi.Samples.ApiModels
+namespace WebApi.Domain.ApiModels
 {
     public class CityApiModel
     {
