@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebApi.Domain.ApiModels;
 
 namespace WebApi.Domain.Services.Interfaces
 {
     public interface IPersonDataProvider
     {
-        IEnumerable<PersonApiModel> Get();
+        Task<IEnumerable<PersonApiModel>> GetAsync();
 
-        PersonApiModel Create(PersonApiModel personApiModel);
+        Task<PersonApiModel> CreateAsync(PersonApiModel personApiModel);
     }
 }

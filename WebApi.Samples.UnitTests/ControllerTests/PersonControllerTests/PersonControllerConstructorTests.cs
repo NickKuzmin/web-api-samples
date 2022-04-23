@@ -1,19 +1,19 @@
 ﻿using System;
+using MediatR;
 using NUnit.Framework;
-using WebApi.Domain.Services.Interfaces;
 using WebApi.Samples.Controllers;
 
 namespace WebApi.Samples.UnitTests.ControllerTests.PersonControllerTests
 {
     public class PersonControllerConstructorTests : PersonControllerTestsBase
     {
-        private IPersonDataProvider _personDataProvider;
+        private IMediator _mediator;
 
         [Test]
-        public void Constructor_PersonDataProviderIsNull_ExpectArgumentNullException()
+        public void Constructor_MediatorIsNull_ExpectArgumentNullException()
         {
             // Arrange
-            _personDataProvider = null;
+            _mediator = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => Act());
@@ -33,12 +33,12 @@ namespace WebApi.Samples.UnitTests.ControllerTests.PersonControllerTests
         public override void SetUp()
         {
             base.SetUp();
-            _personDataProvider = PersonDataProviderMock.Object;
+            _mediator = MediatorMock.Object;
         }
 
         public PersonController Act()
         {
-            return new PersonController(_personDataProvider);
+            return new PersonController(_mediator);
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using CuttingEdge.Conditions;
+using MediatR;
 using WebApi.Domain.ApiModels;
-using WebApi.Domain.Services.Interfaces;
+using WebApi.Samples.Commands;
 
 namespace WebApi.Samples.Controllers
 {
@@ -10,26 +13,28 @@ namespace WebApi.Samples.Controllers
     [Route("[controller]")]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonDataProvider _personDataProvider;
+        private readonly IMediator _mediator;
 
-        public PersonController(IPersonDataProvider personDataProvider)
+        public PersonController(IMediator mediator)
         {
-            Condition.Requires(personDataProvider).IsNotNull(nameof(personDataProvider));
-            _personDataProvider = personDataProvider;
+            Condition.Requires(mediator).IsNotNull(nameof(mediator));
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IEnumerable<PersonApiModel> Get()
+        public async Task<IEnumerable<PersonApiModel>> Get([FromBody] GetPersonsCommand getPersonsCommand)
         {
-            return _personDataProvider.Get();
+            var result = await _mediator.Send(getPersonsCommand, CancellationToken.None);
+
+            return result;
         }
 
         [HttpPost]
-        public PersonApiModel Create(PersonCreateApiModel personCreateApiModel)
+        public async Task<OkObjectResult> Create([FromBody] CreatePersonCommand createPersonCommand)
         {
-            var personApiModel = new PersonApiModel();
+            var result = await _mediator.Send(createPersonCommand, CancellationToken.None);
 
-            return _personDataProvider.Create(personApiModel);
+            return Ok(result);
         }
     }
 }

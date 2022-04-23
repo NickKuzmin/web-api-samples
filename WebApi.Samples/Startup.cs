@@ -1,3 +1,5 @@
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,11 @@ namespace WebApi.Samples
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMediatR(typeof(Startup));
+            services.AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining(typeof(Startup));
+            });
             services.AddScoped<ICityDataProvider, CityDataProvider>();
             services.AddScoped<IPersonDataProvider, PersonDataProvider>();
         }
