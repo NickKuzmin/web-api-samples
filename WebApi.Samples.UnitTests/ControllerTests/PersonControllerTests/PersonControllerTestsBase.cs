@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace WebApi.Samples.UnitTests.ControllerTests.PersonControllerTests
 {
     [TestFixture]
-    public abstract class PersonControllerTestsBase
+    public abstract class PersonControllerTestsBase : TestBase
     {
         public Mock<IMediator> MediatorMock { get; set; }
 

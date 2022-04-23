@@ -1,7 +1,6 @@
 ﻿using System;
 using MediatR;
 using NUnit.Framework;
-using WebApi.Domain.Services.Interfaces;
 using WebApi.Samples.Controllers;
 
 namespace WebApi.Samples.UnitTests.ControllerTests.CityControllerTests
