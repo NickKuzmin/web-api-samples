@@ -13,10 +13,12 @@ namespace WebApi.Samples.UnitTests.ValidatorTests.PersonCreateApiModelValidatorT
         private PersonCreateApiModel _personCreateApiModel;
 
         [Test]
-        public void Validate_FullNameIsNotCyrillic_ExpectValidationResultIsFalse()
+        [TestCase("KuzminNikita")]
+        [TestCase("Кузьмин Никита.")]
+        public void Validate_FullNameIsNotCyrillic_ExpectValidationResultIsFalse(string fullName)
         {
             // Assert
-            _personCreateApiModel.FullName = "KuzminNikita";
+            _personCreateApiModel.FullName = fullName;
 
             // Act
             var result = Act();
@@ -26,7 +28,6 @@ namespace WebApi.Samples.UnitTests.ValidatorTests.PersonCreateApiModelValidatorT
             Assert.IsFalse(result.IsValid);
             Assert.IsNotNull(result.Errors);
 
-            CollectionAssert.Contains("Only cyrillic characters are allowed.", errors);
             result.AssertContains("Only cyrillic characters are allowed.");
         }
 
@@ -34,7 +35,7 @@ namespace WebApi.Samples.UnitTests.ValidatorTests.PersonCreateApiModelValidatorT
         [TestCase("+8(123)456 78 90")]
         [TestCase("7(123)456 78 90")]
         [TestCase("+7(123)4567890")]
-        public void Validate_FullNameIsNotCyrillic_ExpectValidationResultIsFalse(string phone)
+        public void Validate_PhoneHasIncorrectFormat_ExpectValidationResultIsFalse(string phone)
         {
             // Assert
             _personCreateApiModel.Phone = phone;
