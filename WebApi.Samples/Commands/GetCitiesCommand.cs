@@ -4,7 +4,7 @@ using WebApi.Domain.ApiModels;
 
 namespace WebApi.Samples.Commands
 {
-    public class GetCitiesCommand : IRequest<IEnumerable<CityApiModel>>
+    public class GetCitiesCommand : IRequest<List<CityApiModel>>
     {
     }
 }

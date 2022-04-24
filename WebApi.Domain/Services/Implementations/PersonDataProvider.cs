@@ -1,39 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using CuttingEdge.Conditions;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Domain.ApiModels;
+using WebApi.Domain.DataContext;
+using WebApi.Domain.Entities;
 using WebApi.Domain.Services.Interfaces;
 
 namespace WebApi.Domain.Services.Implementations
 {
     public class PersonDataProvider : IPersonDataProvider
     {
-        public Task<IEnumerable<PersonApiModel>> GetAsync()
-        {
-            IEnumerable<PersonApiModel> result = new List<PersonApiModel>
-            {
-                new()
-                {
-                    Id = Guid.Empty,
-                    City = "City #1",
-                    Email = "Email #1",
-                    Phone = "Phone #1"
-                },
-                new()
-                {
-                    Id = Guid.Empty,
-                    City = "City #2",
-                    Email = "Email #2",
-                    Phone = "Phone #2"
-                }
-            };
+        private readonly ApplicationContext _applicationContext;
 
-            return Task.FromResult(result);
+        public PersonDataProvider(ApplicationContext applicationContext)
+        {
+            Condition.Requires(applicationContext).IsNotNull(nameof(applicationContext));
+            _applicationContext = applicationContext;
         }
 
-        public Task<PersonApiModel> CreateAsync(PersonApiModel personApiModel)
+        public async Task<List<PersonApiModel>> GetAsync(CancellationToken cancellationToken)
         {
-            return Task.FromResult(new PersonApiModel());
+            using var context = _applicationContext;
+
+            return await context.Persons.Select(x => new PersonApiModel
+            {
+                    Id = x.Id,
+                    Phone = x.Phone,
+                    Email = x.Email,
+                    FullName = x.FullName,
+                    City = x.City
+            }).ToListAsync(cancellationToken);
+        }
+
+        public async Task<int> CreateAsync(PersonApiModel personApiModel, CancellationToken cancellationToken)
+        {
+            int id;
+            using var context = _applicationContext;
+
+            var person = new Person
+            {
+                Phone = personApiModel.Phone,
+                Email = personApiModel.Email,
+                FullName = personApiModel.FullName,
+                City = personApiModel.City
+            };
+
+            context.Persons.Add(person);
+            await context.SaveChangesAsync(cancellationToken);
+
+            id = person.Id;
+
+            return id;
         }
     }
 }

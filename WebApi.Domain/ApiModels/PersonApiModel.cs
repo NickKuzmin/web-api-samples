@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace WebApi.Domain.ApiModels
+﻿namespace WebApi.Domain.ApiModels
 {
     public class PersonApiModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         
         public string FullName { get; set; }
 

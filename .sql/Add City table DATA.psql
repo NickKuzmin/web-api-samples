@@ -1,0 +1,5 @@
+INSERT INTO dbo.city (id, name)
+VALUES (1, 'Yaroslavl');
+
+INSERT INTO dbo.city (id, name)
+VALUES (2, 'Moscow');

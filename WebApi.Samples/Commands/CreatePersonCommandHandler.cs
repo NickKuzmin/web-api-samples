@@ -7,7 +7,7 @@ using WebApi.Domain.Services.Interfaces;
 
 namespace WebApi.Samples.Commands
 {
-    public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, PersonApiModel>
+    public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, int>
     {
         private readonly IPersonDataProvider _personDataProvider;
 
@@ -17,7 +17,7 @@ namespace WebApi.Samples.Commands
             _personDataProvider = personDataProvider;
         }
 
-        public Task<PersonApiModel> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
+        public Task<int> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
             var personApiModel = new PersonApiModel
             {
@@ -26,7 +26,7 @@ namespace WebApi.Samples.Commands
                 City = request.PersonCreateApiModel.City
             };
 
-            return _personDataProvider.CreateAsync(personApiModel);
+            return _personDataProvider.CreateAsync(personApiModel, cancellationToken);
         }
     }
 }

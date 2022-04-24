@@ -22,10 +22,10 @@ namespace WebApi.Samples.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CityApiModel>> Get()
+        public async Task<List<CityApiModel>> Get(CancellationToken cancellationToken)
         {
             var getCitiesCommand = new GetCitiesCommand();
-            var result = await _mediator.Send(getCitiesCommand, CancellationToken.None);
+            var result = await _mediator.Send(getCitiesCommand, cancellationToken);
 
             return result;
         }

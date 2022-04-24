@@ -4,7 +4,7 @@ using WebApi.Domain.ApiModels;
 
 namespace WebApi.Samples.Commands
 {
-    public class GetPersonsCommand : IRequest<IEnumerable<PersonApiModel>>
+    public class GetPersonsCommand : IRequest<List<PersonApiModel>>
     {
     }
 }

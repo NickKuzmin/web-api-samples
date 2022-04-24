@@ -1,0 +1,6 @@
+CREATE SCHEMA IF NOT EXISTS dbo;
+
+CREATE TABLE dbo.city (
+	id serial PRIMARY KEY,
+	name text
+);

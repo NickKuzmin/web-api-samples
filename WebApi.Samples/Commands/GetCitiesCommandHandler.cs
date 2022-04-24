@@ -8,7 +8,7 @@ using WebApi.Domain.Services.Interfaces;
 
 namespace WebApi.Samples.Commands
 {
-    public class GetCitiesCommandHandler : IRequestHandler<GetCitiesCommand, IEnumerable<CityApiModel>>
+    public class GetCitiesCommandHandler : IRequestHandler<GetCitiesCommand, List<CityApiModel>>
     {
         private readonly ICityDataProvider _cityDataProvider;
 
@@ -18,9 +18,9 @@ namespace WebApi.Samples.Commands
             _cityDataProvider = cityDataProvider;
         }
 
-        public Task<IEnumerable<CityApiModel>> Handle(GetCitiesCommand request, CancellationToken cancellationToken)
+        public async Task<List<CityApiModel>> Handle(GetCitiesCommand request, CancellationToken cancellationToken)
         {
-            return _cityDataProvider.GetAsync();
+            return await _cityDataProvider.GetAsync(cancellationToken);
         }
     }
 }

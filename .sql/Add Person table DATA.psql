@@ -1,0 +1,2 @@
+INSERT INTO dbo.person (id, phone, email, city, fullname)
+VALUES (1, '+7(123)456 78 90', 'kuzmin.nick@rambler.ru', 'Yaroslavl', 'Кузьмин Никита');

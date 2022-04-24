@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using WebApi.Domain.ApiModels;
 
@@ -6,8 +7,8 @@ namespace WebApi.Domain.Services.Interfaces
 {
     public interface IPersonDataProvider
     {
-        Task<IEnumerable<PersonApiModel>> GetAsync();
+        Task<List<PersonApiModel>> GetAsync(CancellationToken cancellationToken);
 
-        Task<PersonApiModel> CreateAsync(PersonApiModel personApiModel);
+        Task<int> CreateAsync(PersonApiModel personApiModel, CancellationToken cancellationToken);
     }
 }

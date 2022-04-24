@@ -2,9 +2,11 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApi.Domain.DataContext;
 using WebApi.Domain.Services.Implementations;
 using WebApi.Domain.Services.Interfaces;
 
@@ -21,6 +23,13 @@ namespace WebApi.Samples
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddEntityFrameworkNpgsql()
+                .AddDbContext<ApplicationContext>(options =>
+                {
+                    options.UseNpgsql(Configuration.GetConnectionString("ApplicationContext"));
+                });
+
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
             services.AddFluentValidation(options =>

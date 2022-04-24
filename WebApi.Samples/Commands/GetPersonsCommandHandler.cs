@@ -8,7 +8,7 @@ using WebApi.Domain.Services.Interfaces;
 
 namespace WebApi.Samples.Commands
 {
-    public class GetPersonsCommandHandler : IRequestHandler<GetPersonsCommand, IEnumerable<PersonApiModel>>
+    public class GetPersonsCommandHandler : IRequestHandler<GetPersonsCommand, List<PersonApiModel>>
     {
         private readonly IPersonDataProvider _personDataProvider;
 
@@ -18,9 +18,9 @@ namespace WebApi.Samples.Commands
             _personDataProvider = personDataProvider;
         }
 
-        public Task<IEnumerable<PersonApiModel>> Handle(GetPersonsCommand request, CancellationToken cancellationToken)
+        public async Task<List<PersonApiModel>> Handle(GetPersonsCommand request, CancellationToken cancellationToken)
         {
-            return _personDataProvider.GetAsync();
+            return await _personDataProvider.GetAsync(cancellationToken);
         }
     }
 }

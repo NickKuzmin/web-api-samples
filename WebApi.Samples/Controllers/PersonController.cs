@@ -22,22 +22,22 @@ namespace WebApi.Samples.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PersonApiModel>> Get()
+        public async Task<List<PersonApiModel>> Get(CancellationToken cancellationToken)
         {
             var getPersonsCommand = new GetPersonsCommand();
-            var result = await _mediator.Send(getPersonsCommand, CancellationToken.None);
+            var result = await _mediator.Send(getPersonsCommand, cancellationToken);
 
             return result;
         }
 
         [HttpPost]
-        public async Task<OkObjectResult> Create([FromBody] PersonCreateApiModel personCreateApiModel)
+        public async Task<OkObjectResult> Create([FromBody] PersonCreateApiModel personCreateApiModel, CancellationToken cancellationToken)
         {
             var createPersonCommand = new CreatePersonCommand
             {
                 PersonCreateApiModel = personCreateApiModel
             };
-            var result = await _mediator.Send(createPersonCommand, CancellationToken.None);
+            var result = await _mediator.Send(createPersonCommand, cancellationToken);
 
             return Ok(result);
         }

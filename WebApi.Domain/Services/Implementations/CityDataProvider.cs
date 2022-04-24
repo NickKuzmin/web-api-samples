@@ -1,29 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using CuttingEdge.Conditions;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Domain.ApiModels;
+using WebApi.Domain.DataContext;
 using WebApi.Domain.Services.Interfaces;
 
 namespace WebApi.Domain.Services.Implementations
 {
     public class CityDataProvider : ICityDataProvider
     {
-        public Task<IEnumerable<CityApiModel>> GetAsync()
+        private readonly ApplicationContext _applicationContext;
+
+        public CityDataProvider(ApplicationContext applicationContext)
         {
-            IEnumerable<CityApiModel> result = new List<CityApiModel>
-            {
-                new()
+            Condition.Requires(applicationContext).IsNotNull(nameof(applicationContext));
+            _applicationContext = applicationContext;
+        }
+
+        public async Task<List<CityApiModel>> GetAsync(CancellationToken cancellationToken)
+        {
+            using var context = _applicationContext;
+
+            return await context.Cities.Select(x => new CityApiModel
                 {
-                    Id = Guid.Empty,
-                    Name = "Some #1"
-                },
-                new()
-                {
-                    Id = Guid.Empty,
-                    Name = "Some #2"
-                }
-            };
-            return Task.FromResult(result);
+                    Id = x.Id,
+                    Name = x.Name
+                })
+                .ToListAsync(cancellationToken);
         }
     }
 }

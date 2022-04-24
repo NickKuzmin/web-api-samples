@@ -1,0 +1,9 @@
+CREATE SCHEMA IF NOT EXISTS dbo;
+
+CREATE TABLE dbo.person (
+	id serial PRIMARY KEY,
+	phone text,
+	email text,
+	city text,
+	fullname text
+);
