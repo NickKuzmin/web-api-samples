@@ -23,7 +23,7 @@ namespace WebApi.Domain.Services.Implementations
 
         public async Task<List<PersonApiModel>> GetAsync(CancellationToken cancellationToken)
         {
-            using var context = _applicationContext;
+            await using var context = _applicationContext;
 
             return await context.Persons.Select(x => new PersonApiModel
             {
@@ -37,8 +37,7 @@ namespace WebApi.Domain.Services.Implementations
 
         public async Task<int> CreateAsync(PersonApiModel personApiModel, CancellationToken cancellationToken)
         {
-            int id;
-            using var context = _applicationContext;
+            await using var context = _applicationContext;
 
             var person = new Person
             {
@@ -51,7 +50,7 @@ namespace WebApi.Domain.Services.Implementations
             context.Persons.Add(person);
             await context.SaveChangesAsync(cancellationToken);
 
-            id = person.Id;
+            var id = person.Id;
 
             return id;
         }

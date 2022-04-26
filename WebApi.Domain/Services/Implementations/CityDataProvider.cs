@@ -22,7 +22,7 @@ namespace WebApi.Domain.Services.Implementations
 
         public async Task<List<CityApiModel>> GetAsync(CancellationToken cancellationToken)
         {
-            using var context = _applicationContext;
+            await using var context = _applicationContext;
 
             return await context.Cities.Select(x => new CityApiModel
                 {
